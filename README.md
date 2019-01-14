@@ -280,7 +280,7 @@ Ceph is provisioned using Rook to simplify deployment:
 
 ```sh
 helm repo add rook-master https://charts.rook.io/master
-helm install --namespace rook-ceph-system --name rook-ceph rook-master/rook-ceph --version v0.7.0-284.g863c10f --set agent.flexVolumeDirPath=/var/lib/kubelet/volume-plugins/
+helm install --namespace rook-ceph-system --name rook-ceph rook-master/rook-ceph --version v0.9.0-4.g8a49531 --set agent.flexVolumeDirPath=/var/lib/kubelet/volume-plugins/
 kubectl create -f services/rook-cluster.yml
 ```
 
@@ -418,7 +418,7 @@ Modify `config/registry.yml` if needed and launch the container registry:
 
 ```sh
 helm repo add stable https://kubernetes-charts.storage.googleapis.com
-helm install --values config/registry.yml stable/docker-registry --version 1.4.3
+helm install --values config/registry.yml stable/docker-registry --version 1.6.1
 ```
 
 Once you have [provisioned DGX servers](#4.-DGX-compute-nodes),
@@ -1098,7 +1098,9 @@ If you need to remove Rook for any reason, here are the steps:
 ```sh
 kubectl delete -f services/rook-cluster.yml
 helm del --purge rook-ceph
-ansible mgmt -b -m file -a "path=/var/lib/rook state=absent"
+kubectl delete namespace rook-ceph-system
+kubectl delete storageclass rook-ceph-block
+ansible all -b -m file -a "path=/var/lib/rook state=absent"
 ```
 
 

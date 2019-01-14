@@ -49,8 +49,8 @@ subjects:
   name: rook-ceph-cluster
   namespace: rook-ceph
 ---
-apiVersion: ceph.rook.io/v1beta1
-kind: Cluster
+apiVersion: ceph.rook.io/v1
+kind: CephCluster
 metadata:
   name: rook-ceph
   namespace: rook-ceph
@@ -141,12 +141,13 @@ spec:
 #    - name: "172.17.4.301"
 #      deviceFilter: "^sd."
 ---
-apiVersion: ceph.rook.io/v1beta1
-kind: Pool
+apiVersion: ceph.rook.io/v1
+kind: CephBlockPool
 metadata:
   name: replicapool
   namespace: rook-ceph
 spec:
+  failureDomain: host
   replicated:
     size: 1
   # For an erasure-coded pool, comment out the replication size above and uncomment the following settings.
@@ -163,7 +164,7 @@ metadata:
      storageclass.kubernetes.io/is-default-class: "true"
 provisioner: ceph.rook.io/block
 parameters:
-  pool: replicapool
+  blockPool: replicapool
   # Specify the namespace of the rook cluster from which to create volumes.
   # If not specified, it will use `rook` as the default namespace of the cluster.
   # This is also the namespace where the cluster will be
@@ -217,8 +218,8 @@ spec:
         - key: data
           path: mon-endpoints
 ---
-apiVersion: ceph.rook.io/v1beta1
-kind: Filesystem
+apiVersion: ceph.rook.io/v1
+kind: CephFilesystem
 metadata:
   name: cephfs
   namespace: rook-ceph
