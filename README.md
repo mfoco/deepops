@@ -279,8 +279,8 @@ Persistent storage for Kubernetes on the management nodes is supplied by Ceph.
 Ceph is provisioned using Rook to simplify deployment:
 
 ```sh
-helm repo add rook-master https://charts.rook.io/master
-helm install --namespace rook-ceph-system --name rook-ceph rook-master/rook-ceph --version v0.9.0-4.g8a49531 --set agent.flexVolumeDirPath=/var/lib/kubelet/volume-plugins/
+helm repo add rook-stable https://charts.rook.io/stable
+helm install --namespace rook-ceph-system --name rook-ceph rook-stable/rook-ceph --version v0.9.1 --set agent.flexVolumeDirPath=/var/lib/kubelet/volume-plugins/
 kubectl create -f services/rook-cluster.yml
 ```
 
