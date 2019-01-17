@@ -1099,10 +1099,20 @@ If you need to remove Rook for any reason, here are the steps:
 kubectl delete -f services/rook-cluster.yml
 helm del --purge rook-ceph
 kubectl delete namespace rook-ceph-system
-kubectl delete storageclass rook-ceph-block
 ansible all -b -m file -a "path=/var/lib/rook state=absent"
 ```
 
+If the first task doesn't work, you might want to pause that process and first remove the finalizers from the cluster:
+
+```
+kubectl -n rook-ceph patch cephclusters.ceph.rook.io rook-ceph -p '{"metadata":{"finalizers": []}}' --type=merge
+```
+
+In some cases, you also have to manually erase the rook-ceph-block StorageClass:
+
+```
+kubectl delete storageclass rook-ceph-block
+```
 
 ## Open Source Software
 
