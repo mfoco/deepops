@@ -8,7 +8,7 @@ default_ubuntu_packages:
   - ubuntu-minimal
     #- dgxserver-configurations
   - dgx-oem-config-eula
-  - dgx-oem-config-bmc
+#  - dgx-oem-config-bmc
   - ipmitool
   - nfs-common
   - ssh
@@ -18,38 +18,38 @@ default_ubuntu_packages:
   - apt-transport-https
   - ifenslave
   - dapl2-utils
-  - ibacm-dev
-  - ibsim
-  - ibsim-doc
-  - ibutils
-  - ibverbs-utils
-  - infiniband-diags
-  - iser-dkms
-  - kernel-mft-dkms
-  - mft
+#  - ibacm-dev
+#  - ibsim
+#  - ibsim-doc
+#  - ibutils
+#  - ibverbs-utils
+#  - infiniband-diags
+#  - iser-dkms
+#  - kernel-mft-dkms
+#  - mft
   - libdapl-dev
-  - libibcm-dev
-  - libibmad-devel
-  - libibmad-static
-  - libibumad-devel
-  - libibumad-static
-  - libibverbs1-dbg
-  - libmlx4-1-dbg
-  - libmlx4-dev
-  - libmlx5-1-dbg
-  - libmlx5-dev
-  - librdmacm-dev
-  - librdmacm-utils
-  - knem
-  - knem-dkms
-  - mlnx-ethtool
-  - mlnx-fw-updater
+#  - libibcm-dev
+#  - libibmad-devel
+#  - libibmad-static
+#  - libibumad-devel
+#  - libibumad-static
+#  - libibverbs1-dbg
+#  - libmlx4-1-dbg
+#  - libmlx4-dev
+#  - libmlx5-1-dbg
+#  - libmlx5-dev
+#  - librdmacm-dev
+#  - librdmacm-utils
+#  - knem
+#  - knem-dkms
+#  - mlnx-ethtool
+#  - mlnx-fw-updater
   - mstflint
-  - ofed-scripts
+#  - ofed-scripts
   - opensm
   - perftest
-  - srp-dkms
-  - srptools
+#  - srp-dkms
+#  - srptools
   - gfortran
   - chrpath
   - bison
