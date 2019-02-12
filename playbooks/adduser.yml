@@ -1,0 +1,59 @@
+- hosts: all
+  become: true
+  become_method: sudo
+  tasks:
+  - name: "Ensure group {{ user }} exists"
+    group:
+      name: "{{ user }}"
+      state: present
+      gid: "{{ userid }}"
+  - name: "Add the user {{ user }}"
+    user:
+      name: "{{ user }}"
+      uid: "{{ userid }}"
+      group: "{{ user }}"
+  - name: "Create .ssh directory"
+    file:
+      path: "/home/{{ user }}/.ssh"
+      owner: "{{ user }}"
+      group: "{{ user }}"
+      state: directory
+  - name: Authorize key
+    copy:
+      src: "./{{ user }}.key.pub"
+      dest: "/home/{{ user }}/.ssh/authorized_keys"
+      owner: "{{ user }}"
+      group: "{{ user }}"
+      mode: 0600
+- hosts: all
+  become: true
+  become_method: sudo
+  tasks:
+  - name: Create .kube directory
+    file:
+      path: /home/{{ user }}/.kube
+      owner: {{ user }}
+      group: {{ user }}
+      state: directory
+  - name: Kube config
+    copy:
+      src: ./{{ user }}.kubeconfig
+      dest: /home/{{ user }}/.kube/config
+      owner: {{ user }}
+      group: {{ user }}
+      mode: 0644
+  - name: Private key
+    copy:
+      src: ./{{ user }}.key
+      dest: /home/{{ user }}/.ssh/id_rsa
+      owner: {{ user }}
+      group: {{ user }}
+      mode: 0600
+  - name: Public key
+    copy:
+      src: ./{{ user }}.key.pub
+      dest: /home/{{ user }}/.ssh/id_rsa.pub
+      owner: {{ user }}
+      group: {{ user }}
+      mode: 0644
+
